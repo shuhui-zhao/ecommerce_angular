@@ -2,10 +2,11 @@ import express from 'express';
 import { connect } from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import productRoutes from './routes/productRoutes';
 
 dotenv.config();
 const app = express();
-const port = 5000;
+const port = 3001;
 app.use(cors());
 app.use(express.json());
 
@@ -28,5 +29,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   return console.log(`Express is listening at http:localhost:${port}`);
 });
+
+app.use('/api', productRoutes);
 
 export default app;

@@ -2,6 +2,7 @@ import { Component, input, inject } from '@angular/core';
 import { Product } from '../../../models/products.model';
 import { PrimaryButtonComponent } from '../../../components/primary-button/primary-button.component';
 import { CartService } from '../../../services/cart.service';
+
 @Component({
   selector: 'app-product-card',
   imports: [PrimaryButtonComponent],
@@ -19,8 +20,13 @@ import { CartService } from '../../../services/cart.service';
         <span class="text-md font-bold">{{ product().title }}</span>
         <span class="text-sm">{{ '$' + product().price }}</span>
         <app-primary-button
-          label="Add to Cart"
-          class="mt-3"
+          [label]="isInstock ? 'Add to Cart' : 'Out of Stock'"
+          [disabled]="isInstock ? false : true"
+          [class]="
+            isInstock
+              ? 'bg-blue-500 text-white w-full border px-5 py-2 rounded-xl shadow-md hover:opacity-75'
+              : 'bg-blue-500 text-white w-full border px-5 py-2 rounded-xl shadow-md opacity-75'
+          "
           (btnClicked)="cardService.addToCart(product())"
         />
       </div>
@@ -38,4 +44,7 @@ import { CartService } from '../../../services/cart.service';
 export class ProductCardComponent {
   cardService = inject(CartService);
   product = input.required<Product>();
+  get isInstock(): Boolean {
+    return (this.product()?.stock ?? 0) > 0;
+  }
 }

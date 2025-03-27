@@ -5,7 +5,7 @@ interface IProduct {
   title: String;
   image: String;
   price: Number;
-  stock?: Number;
+  stock: Number;
 }
 
 const ProductSchema = new Schema<IProduct>({
@@ -13,7 +13,7 @@ const ProductSchema = new Schema<IProduct>({
   title: { type: String, required: true },
   image: { type: String, required: true },
   price: { type: Number, required: true },
-  stock: Number,
+  stock: { type: Number, required: true },
 });
 
 export const Product = model<IProduct>('Product', ProductSchema);

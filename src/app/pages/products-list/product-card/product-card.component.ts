@@ -8,7 +8,7 @@ import { CartService } from '../../../services/cart.service';
   imports: [PrimaryButtonComponent],
   template: `
     <div
-      class="bg-white shadow-md border border-gray-200 rounded-xl p-6 flex flex-col gap-8 relative"
+      class="bg-white shadow-md border border-gray-200 rounded-xl p-6 flex flex-col gap-8 relative h-full"
     >
       <div class="mx-auto">
         <img
@@ -16,19 +16,21 @@ import { CartService } from '../../../services/cart.service';
           class="w-[200px] h-[100px] object-contain"
         />
       </div>
-      <div class="flex flex-col mt-2">
+      <div class="flex flex-col mt-auto">
         <span class="text-md font-bold">{{ product().title }}</span>
         <span class="text-sm">{{ '$' + product().price }}</span>
-        <app-primary-button
-          [label]="isInstock ? 'Add to Cart' : 'Out of Stock'"
-          [disabled]="isInstock ? false : true"
-          [class]="
-            isInstock
-              ? 'mt-3 bg-blue-500 text-white w-full border px-5 py-2 rounded-xl shadow-md hover:opacity-75'
-              : 'mt-3 bg-blue-500 text-white w-full border px-5 py-2 rounded-xl shadow-md opacity-75'
-          "
-          (btnClicked)="cardService.addToCart(product())"
-        />
+        <div class="mt-3">
+          <app-primary-button
+            [label]="isInstock ? 'Add to Cart' : 'Out of Stock'"
+            [disabled]="isInstock ? false : true"
+            [class]="
+              isInstock
+                ? 'bg-blue-500 text-white w-full border px-5 py-2 rounded-xl shadow-md hover:opacity-75'
+                : 'bg-blue-500 text-white w-full border px-5 py-2 rounded-xl shadow-md opacity-75'
+            "
+            (btnClicked)="cardService.addToCart(product())"
+          />
+        </div>
       </div>
       <span
         class="absolute top-2 right-3 text-sm font-bold"
